@@ -47,6 +47,11 @@ userRouter
 .route('/:id')
 .get(getUserById)
 
+authRouter
+.route('/signup')
+.get(getSignUp)
+.post(postSignUp)
+
 
 // app.get('/user',(req,res)=>{
 //     console.log(req.query);
@@ -114,4 +119,17 @@ function getUserById(req,res){
         message:"req receiced",
         data:obj
     });
+}
+
+function getSignUp(req,res){
+    res.sendFile('/public/index.html',{root:__dirname});
+}
+
+function postSignUp(req,res){
+  let obj=req.body;
+  console.log("backend",obj)
+  res.json({
+    message:"user Signed up",
+    data:obj
+  }); 
 }
