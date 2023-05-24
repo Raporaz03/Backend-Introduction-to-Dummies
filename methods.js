@@ -122,7 +122,7 @@ function getUserById(req,res){
 }
 
 function getSignUp(req,res){
-    res.sendFile('/public/index.html',{root:__dirname});
+    res.sendFile('public/index.html',{root:__dirname});
 }
 
 function postSignUp(req,res){
