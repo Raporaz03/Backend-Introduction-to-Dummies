@@ -1,6 +1,7 @@
 const express = require("express");
-
 const app = express();
+
+const mongoose = require("mongoose");
 //middleware function -> post, front->json
 app.use(express.json());      //global middleware
 app.listen(3000);
@@ -151,3 +152,51 @@ function postSignUp(req,res){
     data:obj
   }); 
 }
+
+const db_link='mongodb+srv://admin:f4f3f8EjTTYeSRRb@cluster0.uaseea4.mongodb.net/?retryWrites=true&w=majority';
+mongoose.connect(db_link)
+.then(function(db){
+    console.log(db)
+    console.log("DB Connected")
+})
+.catch(function(err){
+    console.log(err)
+})
+
+const userSchema=mongoose.Schema({
+    name:{
+        type:String,
+        required:true
+    },
+    email:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    password:{
+        type:String,
+        required:true,
+        minLength:6
+    },
+    confirmPassword:{
+        type:String,
+        required:true,
+        minLength:6
+    },
+})
+
+//models
+
+const userModel=mongoose.model('userModel',userSchema);
+
+(async function createUser(){
+    let user={
+        name:"Rishabh",
+        email:"riskha@gmail.com",
+        password:"rapchik",
+        confirmPassword:"rapchik"
+    };
+    let data =await userModel.create(user);
+    console.log(data);
+
+})();
